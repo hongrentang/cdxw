@@ -1,7 +1,7 @@
 {
   "inbounds": [
     {
-      "port": 80,
+      "port": REPLACE_PORT,
       "protocol": "vless",
       "settings": {
         "clients": [
