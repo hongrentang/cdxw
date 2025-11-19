@@ -12,19 +12,19 @@ RUN mkdir -p /etc/cloudflared \
     && curl -L -o /usr/local/bin/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
     && chmod +x /usr/local/bin/cloudflared
 
-# 拷贝 Xray 配置
+# 拷贝 Xray 配置模板
 COPY config.json /etc/xray/config.json
-
-# 拷贝隧道 Token
-COPY cloudflared/token.txt /etc/cloudflared/token.txt
 
 # 入口脚本
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# 默认环境变量
 ENV UUID=11111111-2222-3333-4444-555555555555
 ENV WSPATH=/ws
+ENV XRAY_PORT=80
+# CLOUD_FLARE_TOKEN 由 Docker 环境变量或 Docker Secret 注入
 
-EXPOSE 80
+EXPOSE ${XRAY_PORT}
 
 ENTRYPOINT ["/entrypoint.sh"]
