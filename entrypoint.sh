@@ -18,6 +18,6 @@ if [ -z "$CLOUD_FLARE_TOKEN" ]; then
 fi
 
 echo "启动 Cloudflare 固定隧道..."
-cloudflared service install "$CLOUD_FLARE_TOKEN"
+cloudflared tunnel --no-autoupdate run --token "$CLOUD_FLARE_TOKEN"
 
-exec cloudflared tunnel run
+
